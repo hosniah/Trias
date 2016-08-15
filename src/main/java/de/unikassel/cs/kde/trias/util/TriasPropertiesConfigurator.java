@@ -92,9 +92,9 @@ public class TriasPropertiesConfigurator implements TriasConfigurator {
 		/*
 		 * minimal supports
 		 */
-		final int[] minSupportPerDimension = new int[Dimension.noOfDimensions];
+		final float[] minSupportPerDimension = new float[Dimension.noOfDimensions];
 		for (int dim = 0; dim < minSupportPerDimension.length; dim++) {
-			minSupportPerDimension[dim] = Integer.parseInt(props.getProperty(TRIAS_MIN_SUPPORT_PER_DIMENSION + "." + dim)); 
+			minSupportPerDimension[dim] = Float.parseFloat(props.getProperty(TRIAS_MIN_SUPPORT_PER_DIMENSION + "." + dim)); 
 		}
 		trias.setMinSupportPerDimension(minSupportPerDimension);
 

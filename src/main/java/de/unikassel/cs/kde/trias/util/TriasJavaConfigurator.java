@@ -41,10 +41,10 @@ import de.unikassel.cs.kde.trias.io.TriasStringWriter;
 public class TriasJavaConfigurator implements TriasConfigurator {
 
 	private int[][] utrList;
-	private int[] minSupp;
+	private float[] minSupp;
 	private SortedSet<String> concepts;
 	
-	public TriasJavaConfigurator (final int[][] utrList, final int[] minSupp, final SortedSet<String> concepts) {
+	public TriasJavaConfigurator (final int[][] utrList, final float[] minSupp, final SortedSet<String> concepts) {
 		this.utrList = utrList;
 		this.minSupp = minSupp;
 		this.concepts = concepts;

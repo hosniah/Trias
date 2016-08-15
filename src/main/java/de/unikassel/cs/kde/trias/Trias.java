@@ -62,7 +62,7 @@ public class Trias {
 	 * variables which must be configured (injected) externally
 	 */
 	private int[] numberOfItemsPerDimension; // number of items for each dimension
-	private int[] minSupportPerDimension;    // minimal support for each dimension
+	private float[] minSupportPerDimension;    // minimal support for each dimension
 	private TriasWriter triConceptWriter;    // writes the results
 
 	private ProgressLogger pl = new DummyProgressLogger();
@@ -840,6 +840,10 @@ public class Trias {
 		return result;
 	}
 
+    int[] getNumberOfItemsPerDimension() {
+        return this.numberOfItemsPerDimension;    
+    }
+
 
 	// interface for comparison of certain columns in a utrListe
 	private interface TriasComparator {
@@ -1160,12 +1164,13 @@ public class Trias {
 	public void setNumberOfItemsPerDimension(int[] numberOfItemsPerDimension) {
 		this.numberOfItemsPerDimension = numberOfItemsPerDimension;
 	}
+        
 
 	/** Sets the minimal support values for each dimension.
 	 * 
 	 * @param minSupportPerDimension
 	 */
-	public void setMinSupportPerDimension(int[] minSupportPerDimension) {
+	public void setMinSupportPerDimension(float[] minSupportPerDimension) {
 		this.minSupportPerDimension = minSupportPerDimension;
 	}
 

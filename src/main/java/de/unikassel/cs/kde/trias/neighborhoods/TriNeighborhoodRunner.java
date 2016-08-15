@@ -241,7 +241,10 @@ public class TriNeighborhoodRunner {
 		 */
 		trias.setItemList(mrw.getItemlist());
 		trias.setNumberOfItemsPerDimension(mrw.getNumberOfItemsPerDimension());
-		trias.setMinSupportPerDimension(getIntArrayFromString(prop.getProperty("trias.minSupport"), ARRAY_DELIM));
+
+                float[] myIntArray = new float[]{Float.parseFloat("1.1"),Float.parseFloat("1.1"),Float.parseFloat("1.1")};
+                trias.setMinSupportPerDimension(myIntArray);
+//		trias.setMinSupportPerDimension(getIntArrayFromString(prop.getProperty("trias.minSupport"), ARRAY_DELIM));
 		trias.setTriConceptWriter(mrw);
 		/*
 		 * run trias

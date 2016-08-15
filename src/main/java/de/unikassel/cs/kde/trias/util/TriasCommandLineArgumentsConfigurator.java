@@ -90,7 +90,7 @@ public class TriasCommandLineArgumentsConfigurator implements TriasConfigurator 
 		/*
 		 * minimal supports
 		 */
-		final int[] minSupportPerDimension = new int[Dimension.noOfDimensions];
+		final float[] minSupportPerDimension = new float[Dimension.noOfDimensions];
 		for (int dim = 0; dim < minSupportPerDimension.length; dim++) {
 			minSupportPerDimension[dim] = nextIntArg(); 
 		}
