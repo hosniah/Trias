@@ -1,7 +1,7 @@
 
 This is a first step in order to produce Triadic Associsation Rules used as input for a dynamic replication strategy for DataGrid.
 The following implementation aims to generates Generic Basis of Triadic Rules (BGRT) based on previous works related to folksonomies.
-The 3 dimensions of our replication problem are Grid tasks, Gris Files, and Grid Sites.
+The 3 dimensions of our replication problem are Grid tasks, Grid Files, and Grid Sites.
 
 
 Used algorithms:
