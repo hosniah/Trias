@@ -130,7 +130,7 @@ System.out.println ("Compute Tri-concepts similarities:");
                     String files_string = strLine.substring(strLine.indexOf("C") + 2, strLine.lastIndexOf("}"));
                     String sites_string = strLine.substring(strLine.indexOf("B") + 5, strLine.indexOf("C")-4);
                     //String result = sites_string.substring(strLine.indexOf("{") + 1, strLine.indexOf("}"));
-                    System.out.println ("*************************"+strLine+"****************************");
+                   // System.out.println ("*************************"+strLine+"****************************");
                     
                     String[] groupOfTasks     = result.split("\\s*,\\s*"); String[] triConcept_Sites = files_string.split("\\s*,\\s*");
                     String[] triConcept_Files =  sites_string.split("\\s*,\\s*");
@@ -165,6 +165,7 @@ System.out.println ("Compute Tri-concepts similarities:");
                 String[] triConcept_Files = files_string.split("\\s*,\\s*");
                 String[] result_FilesOfRA = triConcept_Files;
                 String[] merged_FilesOfRA = null;
+                String[] merged_Triconcept_tasks = groupOfTasks;
                 
                 try {
                     fstream           = new FileInputStream("concepts");
@@ -187,11 +188,12 @@ System.out.println ("Compute Tri-concepts similarities:");
                                     boolean sim2  = areGroupOfSitesSimilar(triConcept_Sites, other_triConcept_Sites);
                                     if(sim1==true && sim2==true) {
                                         cardinalOfSimilarTC ++;
-                                        System.out.println ("TriConcept:"+strLine+"...Is Similar to..."+line);
-                                    
+                                        System.out.println ("TriConcept:"+strLine+"...Is Similar to..."+line);                                    
                                         //merge files ...
                                         merged_FilesOfRA = mergeFilesOfRA(triConcept_Files , other_triConcept_Files);
-                                        result_FilesOfRA = mergeFilesOfRA(result_FilesOfRA, merged_FilesOfRA);                                        
+                                        result_FilesOfRA = mergeFilesOfRA(result_FilesOfRA, merged_FilesOfRA); 
+                                        //@TODO: Update similar tri-concepts by merging tasks also.
+                                        
                                     }
                                 } catch (Exception ex) {
                                     Logger.getLogger(TriasRunner.class.getName()).log(Level.SEVERE, null, ex);
@@ -246,21 +248,23 @@ System.out.println ("Compute Tri-concepts similarities:");
             try {
                 HashMap<String, Integer> triconcept_tasksVectors_1 = buildGroupOfTasksVector(src_groupOfTasks);
                 TreeMap<String, Integer> sorted = new TreeMap<String, Integer>(triconcept_tasksVectors_1);
+             /* debug vectors right below
                 for (String name: sorted.keySet()){
                     String key =name.toString();
                     String value = sorted.get(name).toString();  
                     System.out.println(key + "..." + value);  
                 }
+                */
                 
                 HashMap<String, Integer> triconcept_tasksVectors_2 = buildGroupOfTasksVector(other_groupsOfTasks);
                 TreeMap<String, Integer> sorted2 = new TreeMap<String, Integer>(triconcept_tasksVectors_2);
                 
                 double[] vector1 =  new double[triconcept_tasksVectors_1.size()];               
                 double[] vector2 =  new double[triconcept_tasksVectors_2.size()]; 
-                int i=0;int j=0;
+                int i=0; int j=0;
                 for(Entry<String, Integer> entry : sorted.entrySet()) {
                    // Integer cle = Integer.getInteger(entry.getKey());
-                    double val   = (double) entry.getValue();        
+                    double val = (double) entry.getValue();        
                     vector1[i] =  val; i++;
                 }
 
@@ -272,10 +276,10 @@ System.out.println ("Compute Tri-concepts similarities:");
                 
                // System.out.println(Arrays.toString(vector1));
                // System.out.println(Arrays.toString(vector2));                                                
-                CosineSimilarity sim1 = new CosineSimilarity(); 
-                double similarity_check = sim1.cosineSimilarity(vector1, vector2);
-                System.out.println("v1 = "+Arrays.toString(vector1)+", v2 = "+Arrays.toString(vector2));      
-                System.out.println("sim1 = "+similarity_check);
+                CosineSimilarity sim1    = new CosineSimilarity(); 
+                double similarity_check  = sim1.cosineSimilarity(vector1, vector2);
+                //System.out.println("v1 = "+Arrays.toString(vector1)+", v2 = "+Arrays.toString(vector2));      
+               // System.out.println("sim1 = "+similarity_check);
                 return similarity_check > sim1_threshold;
                                 
             } catch (Exception ex) {
@@ -285,9 +289,9 @@ System.out.println ("Compute Tri-concepts similarities:");
     }
 
     private static boolean areGroupOfSitesSimilar(String[] src_triConcept_Sites, String[] other_triConcept_Sites ) {
-        double threshold = 0.75;
-        double others_cardinal      = 0;
-        double sim2      = 0;        
+        double threshold             = 0.75;
+        double others_cardinal       = 0;
+        double sim2                  = 0;        
         LongestCommonSubsequence lcs = new LongestCommonSubsequence();
         String src_sites             = buildSiteString(src_triConcept_Sites);
         String other_sites           = buildSiteString(other_triConcept_Sites);               
@@ -299,7 +303,7 @@ System.out.println ("Compute Tri-concepts similarities:");
         others_cardinal = (double) other_triConcept_Sites.length;
         sim2 = Sim/others_cardinal;  
         //System.out.println(sim2);
-        System.out.println("sim2 = "+sim2);
+      //  System.out.println("sim2 = "+sim2);
         return (threshold < sim2);
     }
 
@@ -352,15 +356,16 @@ System.out.println ("Compute Tri-concepts similarities:");
                     // triConcepts = runner.readConceptsFromFile();
                     // if(Arrays.asList(groupOfTasks).contains(Integer.toString(output[0]))) {
                         if(valid.contains(Integer.toString(output[0]))) {
-                            h.put("F"+output[1], h.get("F"+output[1]) + 1);     
+                            h.put("F"+output[1], h.get("F"+output[1]) + 1);   
+                            //System.out.println(strLine);
                         }
                    //}
                 }
             } catch (IOException ex) {
                 Logger.getLogger(TriasRunner.class.getName()).log(Level.SEVERE, null, ex);
             }        
-        //To change body of generated methods, choose Tools | Templates.
-            return h;
+        //To change body of generated methods, choose Tools | Templates.        
+        return h;
     }
 
     private static void buildTriadicAssociationRules(String[] FilesOfRA, String[] tasks, String[] sites, int cardinalOfSimilarTC) {
@@ -384,7 +389,6 @@ System.out.println ("Compute Tri-concepts similarities:");
             // compute Triadic support& confidence
             double supp_c = triadic_rule.computeConditionalTriadicSupport(cardinalOfSimilarTC);
             double conf_c = triadic_rule.computeConditionalTriadicConfidence();
-
 
             if(supp_c > min_supp && conf_c > min_conf) {
                 triadic_rule.addToBGRT();

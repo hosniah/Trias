@@ -6,31 +6,20 @@
 package com.hosniah.grid;
 
 import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.HashBasedTable;
-import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Multimap;
-import com.google.common.collect.Table;
 import de.unikassel.cs.kde.trias.TriasRunner;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 /**
@@ -159,7 +148,7 @@ public class ArtMiner_bgrt {
     }
 
     public double computeConditionalTriadicConfidence() {
-        this.conditionalTriadicConfidence = 0;
+        this.conditionalTriadicConfidence = 1; // this.conditionalTriadicSupport /suppc(this.premise)
         return this.conditionalTriadicConfidence;        
     }
 
